@@ -1,0 +1,13 @@
+{
+    "welcomeMsg": "Welcome to your Vue.js App",
+    "pluginsTxt": "Installed CLI Plugins",
+    "guideTxt": "For a guide and recipes on how to configure / customize this project, {break} an {action}",
+    "guideDocTxt": "vue-cli documentation",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "register": "Register",
+    "customer": "Customers",
+    "logo": "My Vue App"
+
+}

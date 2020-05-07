@@ -1,0 +1,12 @@
+{
+    "welcomeMsg": "Chào mừng đến với Vue.js App",
+    "pluginsTxt": "Cài đặt plugins",
+    "guideTxt": "Hướng dẫn các cấu hình và tùy biến project, {break} và {action}",
+    "guideDocTxt": "Tài liệu vue-cli",
+    "email": "Thư điện tử",
+    "password": "Mật khẩu",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "customer": "KH",
+    "logo": "Ứng Dụng Vue"
+}
