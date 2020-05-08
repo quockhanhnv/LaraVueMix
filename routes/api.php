@@ -41,7 +41,7 @@ Route::group(['middleware' => 'jwt.auth',], function ($router) {
 
     Route::get('notifications', 'NotificationController@all');
     Route::get('notifications/{id}', 'NotificationController@get')->name('client.notification.get')->middleware('check.can.read.notification');
-    Route::post('notifications/new', 'NotificationController@new');
+    Route::post('notifications/new', 'NotificationController@new')->middleware('check.can.create.notification');
 
 });
 

@@ -66,4 +66,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return in_array(auth()->user()->role, config('group_notification'));
     }
+
+    public function getNotification()
+    {
+        return $this->belongsToMany(Notification::class, 'user_notifications', 'user_id');
+    }
+
+    public function canCreateNotification()
+    {
+        return auth()->user()->role == ADMIN_ROLE;
+    }
 }
