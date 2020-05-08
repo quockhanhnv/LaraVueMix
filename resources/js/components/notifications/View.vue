@@ -17,10 +17,7 @@
                     <th>Email</th>
                     <td>{{ notification.notification_content }}</td>
                 </tr>
-                <tr>
-                    <th>Author</th>
-                    <td>{{ notification.author.name }}</td>
-                </tr>
+
             </table>
             <router-link to="/notifications">Back to all notifications</router-link>
         </div>
@@ -29,22 +26,22 @@
 
 <script>
     export default {
-        name: 'view',
+        name: 'view-notify',
         created() {
-            if (this.notifications.length) {
-                this.notification = this.notifications.find((notification) => notification.id == this.$route.params.id);
-            } else {
-                axios.get(`/api/notifications/${this.$route.params.id}`)
-                    .then((response) => {
-                        this.notification = response.data.notification
-                    });
-            }
+            axios.get(`/api/notifications/${this.$route.params.id}`)
+                .then((response) => {
+                    this.notification = response.data.notification
+                }).catch((err) =>{
+                this.$router.push({path: '/login'})
+            });
+
         },
         data() {
             return {
                 notification: null
             };
         },
+
         computed: {
             currentUser() {
                 return this.$store.getters.currentUser;

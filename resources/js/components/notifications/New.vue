@@ -23,7 +23,6 @@
                     </td>
                 </tr>
             </table>
-            {{notification}}
         </form>
         <div class="errors" v-if="errors">
             <ul>

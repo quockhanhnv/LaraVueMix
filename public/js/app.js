@@ -2472,10 +2472,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'list',
   mounted: function mounted() {
-    if (this.notifications.length) {
-      return;
-    }
-
+    // if (this.notifications.length) {
+    //     return;
+    // }
     this.$store.dispatch('getNotifications');
   },
   computed: {
@@ -2529,7 +2528,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validate.js */ "./node_modules/validate.js/validate.js");
 /* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validate_js__WEBPACK_IMPORTED_MODULE_0__);
-//
 //
 //
 //
@@ -2660,23 +2658,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'view',
+  name: 'view-notify',
   created: function created() {
     var _this = this;
 
-    if (this.notifications.length) {
-      this.notification = this.notifications.find(function (notification) {
-        return notification.id == _this.$route.params.id;
+    axios.get("/api/notifications/".concat(this.$route.params.id)).then(function (response) {
+      _this.notification = response.data.notification;
+    })["catch"](function (err) {
+      _this.$router.push({
+        path: '/login'
       });
-    } else {
-      axios.get("/api/notifications/".concat(this.$route.params.id)).then(function (response) {
-        _this.notification = response.data.notification;
-      });
-    }
+    });
   },
   data: function data() {
     return {
@@ -43741,8 +43734,7 @@ var render = function() {
             _vm._v(" "),
             _vm._m(0)
           ])
-        ]),
-        _vm._v("\n        " + _vm._s(_vm.notification) + "\n    ")
+        ])
       ]
     ),
     _vm._v(" "),
@@ -43823,12 +43815,6 @@ var render = function() {
                 _c("td", [
                   _vm._v(_vm._s(_vm.notification.notification_content))
                 ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("Author")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.notification.author.name))])
               ])
             ]),
             _vm._v(" "),
