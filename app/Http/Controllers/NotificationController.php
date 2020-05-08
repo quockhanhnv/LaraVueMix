@@ -15,19 +15,26 @@ class NotificationController extends Controller
 {
     public function all()
     {
-        $customers = Notification::with('author')->orderBy('created_at', 'desc')->get();
+        $notifications = Notification::with('author')->orderBy('created_at', 'desc')->get();
 
         return response()->json([
-            "notifications" => $customers
+            "notifications" => $notifications
         ], 200);
     }
 
     public function get($id)
     {
-        $customer = Notification::whereId($id)->first();
+        $notification = Notification::whereId($id)->first();
+
+        DB::table('user_notifications')
+            ->where([
+                ['user_id', '=', auth()->user()->id],
+                ['notification_id', '=', $id],
+
+            ])->update(['status' => READABLE]);
 
         return response()->json([
-            "notification" => $customer
+            "notification" => $notification
         ], 200);
     }
 

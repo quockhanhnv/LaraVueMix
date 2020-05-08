@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.can.read.notification' => \App\Http\Middleware\CheckCanReadNotification::class,
+        'check.can.create.notification' => \App\Http\Middleware\CheckCanCreateNotification::class,
     ];
 }
