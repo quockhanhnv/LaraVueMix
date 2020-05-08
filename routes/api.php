@@ -40,7 +40,7 @@ Route::group(['middleware' => 'jwt.auth',], function ($router) {
     Route::post('customers/new', 'CustomersController@new');
 
     Route::get('notifications', 'NotificationController@all');
-    Route::get('notifications/{id}', 'NotificationController@get');
+    Route::get('notifications/{id}', 'NotificationController@get')->name('client.notification.get')->middleware('check.can.read.notification');
     Route::post('notifications/new', 'NotificationController@new');
 
 });

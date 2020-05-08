@@ -35,10 +35,9 @@
     export default {
         name: 'list',
         mounted() {
-            if (this.notifications.length) {
-                return;
-            }
-
+            // if (this.notifications.length) {
+            //     return;
+            // }
             this.$store.dispatch('getNotifications');
         },
         computed: {

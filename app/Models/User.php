@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -61,8 +62,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-//    public function notification()
-//    {
-//        return $this->belongsToMany(Notification::class, 'user_notifications', 'notification_id');
-//    }
+    public function canReadNotification()
+    {
+        return in_array(auth()->user()->role, config('group_notification'));
+    }
 }

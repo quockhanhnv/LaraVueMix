@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateNotificationRequest;
 use App\Mail\SendMailToNotifications;
 use App\Models\Notification;
 use App\Models\User;
@@ -26,16 +27,15 @@ class NotificationController extends Controller
         $customer = Notification::whereId($id)->first();
 
         return response()->json([
-            "customer" => $customer
+            "notification" => $customer
         ], 200);
     }
 
-    public function new(Request $request)
+    public function new(CreateNotificationRequest $request)
     {
-
         try {
             DB::beginTransaction();
-            //create a notification
+
             $notification = new Notification();
             $notification->notification_title = $request->input('notification_title');
             $notification->notification_content = $request->input('notification_content');
@@ -43,7 +43,10 @@ class NotificationController extends Controller
 
             $notification->save();
             // insert data to role_user table
-            $users = User::where('role', ADMIN_ROLE)->get();
+            $groupNotification = config('group_notification');
+            $groupNotification = array_diff($groupNotification, array(ADMIN_ROLE));
+
+            $users = User::whereIn('role', $groupNotification)->get(); // whereIn groupNotification
 
             $notification->users()->attach($users);
 
@@ -51,9 +54,12 @@ class NotificationController extends Controller
 
             // send mail to all user has role ADMIN_ROLE
 
-//            $listEmail = $users->pluck('email')->toArray();
-//
-//            Mail::to('quockhanhnv0209@gmail.com')->send(new SendMailToNotifications($notification->notification_title, $notification->notification_content));
+            $listEmail = $users->pluck('email')->toArray();
+
+            $link = route('web.notification.get', ['id' => $notification->id]);
+
+            Mail::to($listEmail)->send(new SendMailToNotifications($notification->notification_title, $notification->notification_content, $link));
+
             return response()->json([
                 "notification" => $notification
             ], 200);

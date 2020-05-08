@@ -11,7 +11,7 @@
         <p>Notification from App</p>
         <p>{{ $title }}</p>
         <p> {{ $content }}</p>
-        <p>Please access <a href="#">link</a> to read notification details</p>
+        <p>Please access <a href="{{$link}}">here</a> to read notification details</p>
     </div>
     <div style="background: #f4f5f5;box-sizing: border-box;padding: 15px">
         <p style="margin:2px 0;color: #333">Email : quockhanhnv0209@gmail.com</p>

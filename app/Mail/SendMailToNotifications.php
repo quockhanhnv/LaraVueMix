@@ -13,15 +13,17 @@ class SendMailToNotifications extends Mailable
 
     protected $title;
     protected $content;
+    protected $link;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($title, $content)
+    public function __construct($title, $content, $link)
     {
         $this->title = $title;
         $this->content = $content;
+        $this->link = $link;
     }
 
     /**
@@ -37,6 +39,7 @@ class SendMailToNotifications extends Mailable
             ->with([
                 'title' => $this->title,
                 'content' => $this->content,
+                'link' => $this->link,
             ]);
     }
 }
