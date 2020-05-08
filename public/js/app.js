@@ -61482,8 +61482,8 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Dell\Desktop\Fabbi\LaravelMix\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Dell\Desktop\Fabbi\LaravelMix\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\LaraVueMix\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\LaraVueMix\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
