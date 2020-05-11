@@ -10,6 +10,8 @@ export function initialize(store, router) {
         } else {
             next();
         }
+        // check role to navigate
+
     });
 
     axios.interceptors.response.use(null, (error) => {

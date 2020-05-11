@@ -17,7 +17,6 @@
                     <th>Email</th>
                     <td>{{ notification.notification_content }}</td>
                 </tr>
-
             </table>
             <router-link to="/notifications">Back to all notifications</router-link>
         </div>
