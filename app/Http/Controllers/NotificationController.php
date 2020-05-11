@@ -6,16 +6,26 @@ use App\Http\Requests\CreateNotificationRequest;
 use App\Mail\SendMailToNotifications;
 use App\Models\Notification;
 use App\Models\User;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
+    protected $notificationService;
+
+    public function __construct(NotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
+
     public function all()
     {
-        $notifications = Notification::with('author')->orderBy('created_at', 'desc')->get();
+        $notifications = $this->notificationService->withRelation(['author']);
+        $notifications = $this->notificationService->orderByField($notifications,'created_at', 'desc')->get();
 
         return response()->json([
             "notifications" => $notifications
@@ -24,14 +34,8 @@ class NotificationController extends Controller
 
     public function get($id)
     {
-        $notification = Notification::whereId($id)->first();
-
-        DB::table('user_notifications')
-            ->where([
-                ['user_id', '=', auth()->user()->id],
-                ['notification_id', '=', $id],
-
-            ])->update(['status' => READABLE]);
+        $notification = $this->notificationService->findById($id);
+        $this->notificationService->changeStatus($id);
 
         return response()->json([
             "notification" => $notification
@@ -41,39 +45,16 @@ class NotificationController extends Controller
     public function new(CreateNotificationRequest $request)
     {
         try {
-            DB::beginTransaction();
+           $this->notificationService->store($request);
 
-            $notification = new Notification();
-            $notification->notification_title = $request->input('notification_title');
-            $notification->notification_content = $request->input('notification_content');
-            $notification->created_by = Auth::guard('api')->user()->id;
-
-            $notification->save();
-            // insert data to role_user table
-            $groupNotification = config('group_notification');
-            $groupNotification = array_diff($groupNotification, array(ADMIN_ROLE));
-
-            $users = User::whereIn('role', $groupNotification)->get(); // whereIn groupNotification
-
-            $notification->users()->attach($users);
-
-            DB::commit();
-
-            // send mail to all user has role ADMIN_ROLE
-
-            $listEmail = $users->pluck('email')->toArray();
-
-            $link = route('web.notification.get', ['id' => $notification->id]);
-
-            Mail::to($listEmail)->send(new SendMailToNotifications($notification->notification_title, $notification->notification_content, $link));
-
-            return response()->json([
-                "notification" => $notification
-            ], 200);
+                return response()->json([
+                    "message" => 'Created notification successfully'
+                ], 200);
 
         } catch (\Exception $exception) {
-            DB::rollBack();
+            Log::error('Something went wrong when insert notification ' . $exception->getMessage());
         }
+
 
     }
 }
