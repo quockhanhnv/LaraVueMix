@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="btn-wrapper">
+        <div class="btn-wrapper" v-if="adminRole">
             <router-link to="/notifications/new" class="btn btn-primary btn-sm">New</router-link>
         </div>
         <table class="table">
@@ -43,6 +43,9 @@
         computed: {
             notifications() {
                 return this.$store.getters.notifications;
+            },
+            adminRole() {
+                return this.$store.getters.currentUser.role == 100;
             }
         }
     }

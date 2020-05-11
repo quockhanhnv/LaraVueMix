@@ -54,7 +54,7 @@
             }
         },
         methods: {
-            add() {
+            add() { // check state for role which can create notification
                 this.errors = null;
                 const constraints = this.getConstraints();
                 const errors = validate(this.$data.notification, constraints);

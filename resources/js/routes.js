@@ -35,7 +35,10 @@ export const routes = [
             },
             {
                 path: 'new',
-                component: NewCustomer
+                component: NewCustomer,
+                beforeEnter: (to, from, next) => {
+                    // ...
+                }
             },
             {
                 path: ':id',

@@ -2480,6 +2480,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     notifications: function notifications() {
       return this.$store.getters.notifications;
+    },
+    adminRole: function adminRole() {
+      return this.$store.getters.currentUser.role == 100;
     }
   }
 });
@@ -2585,6 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
     add: function add() {
       var _this = this;
 
+      // check state for role which can create notification
       this.errors = null;
       var constraints = this.getConstraints();
       var errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(this.$data.notification, constraints);
@@ -2632,7 +2636,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -43510,21 +43513,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "btn-wrapper" },
-      [
-        _c(
-          "router-link",
-          {
-            staticClass: "btn btn-primary btn-sm",
-            attrs: { to: "/notifications/new" }
-          },
-          [_vm._v("New")]
+    _vm.adminRole
+      ? _c(
+          "div",
+          { staticClass: "btn-wrapper" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary btn-sm",
+                attrs: { to: "/notifications/new" }
+              },
+              [_vm._v("New")]
+            )
+          ],
+          1
         )
-      ],
-      1
-    ),
+      : _vm._e(),
     _vm._v(" "),
     _c("table", { staticClass: "table" }, [
       _vm._m(0),
@@ -61264,7 +61269,8 @@ function initialize(store, router) {
       next('/');
     } else {
       next();
-    }
+    } // check role to navigate
+
   });
   axios.interceptors.response.use(null, function (error) {
     if (error.resposne.status == 401) {
@@ -61335,7 +61341,9 @@ var routes = [{
     component: _components_customers_List_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: 'new',
-    component: _components_customers_New_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_customers_New_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    beforeEnter: function beforeEnter(to, from, next) {// ...
+    }
   }, {
     path: ':id',
     component: _components_customers_View_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
