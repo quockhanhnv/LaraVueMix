@@ -9,5 +9,4 @@ class UserNotifications extends Model
     public $table = 'user_notifications';
     protected $guarded = [];
 
-
 }
