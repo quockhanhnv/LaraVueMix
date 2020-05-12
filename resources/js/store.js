@@ -73,7 +73,7 @@ export default {
         getNotifications(context) {
             axios.get('/api/notifications')
                 .then((response) => {
-                    context.commit('updateNotifications', response.data.notifications);
+                    context.commit('updateNotifications', response.data.data);
                 })
         }
     }

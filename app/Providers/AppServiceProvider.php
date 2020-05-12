@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Exceptions\CustomHandler;
+use App\Exceptions\Handler;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(Handler::class, CustomHandler::class);
     }
 
     /**

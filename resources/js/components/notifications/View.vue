@@ -29,7 +29,7 @@
         created() {
             axios.get(`/api/notifications/${this.$route.params.id}`)
                 .then((response) => {
-                    this.notification = response.data.notification
+                    this.notification = response.data.data
                 }).catch((err) =>{
                 this.$router.push({path: '/login'})
             });
