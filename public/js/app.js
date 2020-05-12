@@ -2667,7 +2667,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("/api/notifications/".concat(this.$route.params.id)).then(function (response) {
-      _this.notification = response.data.notification;
+      _this.notification = response.data.data;
     })["catch"](function (err) {
       _this.$router.push({
         path: '/login'
@@ -61450,7 +61450,7 @@ var user = Object(_helpers_auth__WEBPACK_IMPORTED_MODULE_0__["getLocalUser"])();
     },
     getNotifications: function getNotifications(context) {
       axios.get('/api/notifications').then(function (response) {
-        context.commit('updateNotifications', response.data.notifications);
+        context.commit('updateNotifications', response.data.data);
       });
     }
   }
