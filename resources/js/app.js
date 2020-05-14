@@ -9,6 +9,9 @@ import {initialize} from './helpers/general';
 
 import {i18n} from "./components/plugins/i18n";
 
+import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
+
 Vue.use(VueRouter);
 Vue.use(Vuex);
 

@@ -46,3 +46,10 @@ Route::group(['middleware' => 'jwt.auth',], function ($router) {
 });
 
 
+Route::group(['prefix' => 'firebase'], function ($router) {
+
+    Route::get('notifications', 'FirebaseController@index');
+    Route::post('notifications', 'FirebaseController@store');
+
+});
+

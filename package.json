@@ -24,10 +24,12 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "firebase": "^7.14.3",
         "validate.js": "^0.13.1",
         "vue-flag": "^0.1.1",
         "vue-i18n": "^8.17.4",
         "vue-router": "^3.1.6",
+        "vuefire": "^2.2.2",
         "vuex": "^3.3.0"
     }
 }
